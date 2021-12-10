@@ -96,7 +96,7 @@ color_hash[6] = function(line)
 end
 
 local colorize_ls = function(bufnr, data, sections)
-  local windows_add = Path.path.sep == "\\" and 2 or 0
+  local windows_add = Path.path.is_windows_os == true and 2 or 0
   for lnum, line in ipairs(data) do
     local section = sections[lnum]
     for i = 1, section[1].end_index - 1 do -- Highlight permissions

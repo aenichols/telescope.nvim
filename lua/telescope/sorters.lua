@@ -177,8 +177,7 @@ end
 sorters.Sorter = Sorter
 
 local make_cached_tail = function()
-  local os_sep = util.get_separator()
-  local match_string = "[^" .. os_sep .. "]*$"
+  local match_string = "[^(\\|/)]*$"
   return setmetatable({}, {
     __index = function(t, k)
       local tail = string.match(k, match_string)

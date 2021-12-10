@@ -13,6 +13,7 @@ utils.get_separator = function(use_unix_friendly_paths)
     return "/"
   end
 
+  print("WARNING: Windows paths are not supported yet" .. Path.path.sep)
   return Path.path.sep
 end
 
@@ -306,8 +307,7 @@ utils.path_smart = (function()
 end)()
 
 utils.path_tail = (function()
-  local os_sep = utils.get_separator()
-  local match_string = "[^" .. os_sep .. "]*$"
+  local match_string = "[^[\\|/]]*$"
 
   return function(path)
     return string.match(path, match_string)
@@ -332,7 +332,8 @@ utils.transform_path_os_sep = function(filename)
     return filename
   end
 
-  return filename:gsub(Path.path.sep, os_sep)
+  print("filename: " .. filename:gsub("^[\\|/]", os_sep))
+  return filename:gsub("[\\|/]", os_sep)
 end
 
 local is_uri = function(filename)

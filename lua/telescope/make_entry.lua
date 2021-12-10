@@ -112,7 +112,7 @@ do
   }
 
   local find = (function()
-    if Path.path.sep == "\\" then
+    if Path.path.is_windows_os == true then
       return function(t)
         local start, _, filename, lnum, col, text = string.find(t, [[([^:]+):(%d+):(%d+):(.*)]])
 
@@ -930,8 +930,8 @@ function make_entry.gen_from_ctags(opts)
       tag, file, lnum = string.match(line, "([^\t]+)\t([^\t]+)\t(%d+).*")
     end
 
-    if Path.path.sep == "\\" then
-      file = string.gsub(file, "/", "\\")
+    if Path.path.is_windows_os then
+      file = string.gsub(file, "[\\|/]", Path.path.sep)
     end
 
     if opts.only_current_file and file ~= current_file then
